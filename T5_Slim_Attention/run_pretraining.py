@@ -181,7 +181,7 @@ if __name__ == "__main__":
         train_loss_list.append(train_loss)
         valid_loss_list.append(valid_loss)
 
-        if valid_loss > best_loss:  # if validation loss not improved
+        if valid_loss >= best_loss:  # if validation loss not improved
             patience_check += 1 # patience +1
 
             if patience_check >= patience_limit: break
@@ -218,6 +218,7 @@ if __name__ == "__main__":
     plt.grid(True)
 
     plt.show()
+
 
 
 
