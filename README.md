@@ -52,5 +52,16 @@ $$V= K (W_K^{-1} W_V)=K W_{KV}$$
 
 ---
 
+## 5. 학습
 
+pretraining은 sequence packing을 통해 512 tokens로 구성된 입력 시퀀스로 수행되며, T5의 pretraining objective인 span corruption을 사용한다. 
+
+sequence packing은 배치 학습을 위해 pad token을 추가하는 대신, 여러 텍스트를 연속적인 고정 길이 블록으로 구성함으로써, 무의미한 padding token에 대한 연산 낭비를 줄이기 위해 사용한다. 
+
+sequence packing이 적용된 입력 시퀀스에서 전체 토큰의 15%를 corruption 대상으로 선택하고, 평균 span 길이 3이 되도록 연속된 noise span을 무작위로 생성한다. 이후 각 noise span의 시작 위치를 sentinel token으로 치환하고, 동일 span의 나머지 토큰은 제거한다. 
+
+예측 대상은 sentinel tokens로 교체된 부분이기 때문에, 타겟 시퀀스의 길이가 줄어들고 이에 따른 계산 비용도 절감된다. 
+<p align="center">
+  <img src="https://github.com/US-Stock-Market-News/img/478054827-f687b12f-bc84-4f97-b48f-7d3bc90a1b3a.png" width="700">
+</p>
 
