@@ -1,5 +1,4 @@
 # US Stock Market News Sentiment Classification
----
 
 ## 1. 프로젝트 목표
 프로젝트의 목표는 미국 증시 관련 뉴스 문장을 입력받아, 해당 뉴스가 시장 관점에서 bearish, neutral, bullish 가운데 어느 방향성에 해당하는지를 예측하는 domain-specific small language model을 구축하는 것이다. 
