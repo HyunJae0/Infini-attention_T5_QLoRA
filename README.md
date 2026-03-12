@@ -62,7 +62,7 @@ sequence packing이 적용된 입력 시퀀스에서 전체 토큰의 15%를 cor
 
 예측 대상은 sentinel tokens로 교체된 부분이기 때문에, 타겟 시퀀스의 길이가 줄어들고 이에 따른 계산 비용도 절감된다. 
 <p align="center">
-  <img src="img.png" width="400">
+  <img src="./img.png" width="400">
 </p>
 이러한 noising 처리는 RoBERTa의 dynamic masking 전략을 적용하여 학습 시점에 동적으로 생성되도록 구현하였다.
 
