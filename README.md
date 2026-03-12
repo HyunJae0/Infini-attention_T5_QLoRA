@@ -83,8 +83,6 @@ learning rate를 포함한 하이퍼파라미터들은 예비 실험을 통해 �
 
 54M tokens 데이터로 70M 규모의 encoder–decoder Transformer를 pretraining한 뒤, 동일한 도메인의 데이터로 fine-tuning을 수행한 결과 test accuracy 83.41%를 달성했다. <code>run_finetuning.ipynb</code>
 
-이는 대규모의 일반 말뭉치에 의존하지 않더라도 pretraining data와 downstream task data의 도메인이 일치하면, 소규모의 pretraining이 성능 향상에 도움이 될 수 있음을 보여주는 결과이다. 
-
 finetuning 과정에서 train accuracy는 꾸준히 상승하는 반면, validation accuracy는 일정 시점 이후 정체되거나 소폭 하락하는 과적합 경향이 나타나 early stopping에 의해 학습이 조기 종료되었다. 
 
 early stopping에 의해 조기 종료된 모델을 기준으로 validation 및 test accuracy를 측정한 결과, 두 성능 간의 차이가 크지 않았다. 이는 unseen data에 대해서도 일정 수준의 일반화 성능을 확보했음을 시사한다.
