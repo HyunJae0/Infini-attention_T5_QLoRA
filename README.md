@@ -1,4 +1,4 @@
-# US Stock Market News Sentiment Analysis
+# US Stock Market News Sentiment Classification
 이 프로젝트의 목표는 미국 증시 뉴스 내용을 기반으로, 해당 뉴스에서 언급된 기업 또는 특정 시장 상황을 약세(Bearish), 중립(Neutral), 강세(Bullish)로 분류하는 미국 증시 도메인 특화 모델을 구축하는 것입니다.
 
 사용 가능한 GPU 메모리가 한정되어 있기 때문에, 공개된 대규모 사전학습 모델 대신 작은 크기의 사전학습 모델을 구축하고자 하였으며, 최종적으로 T5_samll 크기의 사전학습 모델을 만들었습니다.
