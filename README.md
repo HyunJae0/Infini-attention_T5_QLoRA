@@ -105,4 +105,4 @@ Bloomberg Financial News 120k는 article-level이고, Yahoo Finance News Sentenc
 
 pretraining으로 금융 텍스트에 대한 표현 학습에는 도움을 줄 수 있지만, 그것만으로 시장 관점의 심리를 직접적으로 학습하는 것은 아니다. 결국 이 프로젝트의 성능은 도메인 지식이 반영된 표현 학습과 레이블이 있는 분류 학습이 결합된 결과이다. 
 
-넷째, small model을 만들기 위해 6 layers를 사용했지만, 줄어든 레이어 수로 인한 성능 저하를 고려하지 않았다. 이를 보완하기 위해 상대적으로 넓은 hidden dimension(<code>d_model</code>)을 사용할 필요가 있다. 
+넷째, small model을 만들기 위해 6 layers를 사용했지만, 줄어든 레이어 수로 인한 성능 저하를 고려하지 않았다. 이를 보완하기 위해 상대적으로 넓은 hidden dimension($d_model$)을 사용할 필요가 있다. 
