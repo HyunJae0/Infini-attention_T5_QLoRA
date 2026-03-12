@@ -62,5 +62,5 @@ sequence packing이 적용된 입력 시퀀스에서 전체 토큰의 15%를 cor
 
 예측 대상은 sentinel tokens로 교체된 부분이기 때문에, 타겟 시퀀스의 길이가 줄어들고 이에 따른 계산 비용도 절감된다. 
 <p align="center">
-  <img src="./img/478054827-f687b12f-bc84-4f97-b48f-7d3bc90a1b3a.png" width="500">
+  <img src="./img/478054827-f687b12f-bc84-4f97-b48f-7d3bc90a1b3a.png" width="400">
 </p>
