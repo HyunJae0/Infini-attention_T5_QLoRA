@@ -72,3 +72,37 @@ Adafactor optimizer와 inverse square root scheduler를 사용하며, learning r
 <p align="center">
   <img src="./img/478054827-f687b12f-bc84-4f97-b48f-7d3bc90a1b3a.png" width="400">
 </p>
+
+pretraining 단계에서는 learning rate 0.01을 사용했지만, finetuning 단계에서는 사전학습된 파라미터를 기반으로 downstream task에 맞게 미세 조정을 수행해야 하므로, 기존 표현을 안정적으로 유지하기 위해 작은 learning rate 2e-5를 사용한다. 
+
+learning rate를 포함한 하이퍼파라미터들은 예비 실험을 통해 성능을 비교한 후, 가장 안정적인 결과를 보인 setting으로 결정하였다. 
+
+---
+
+## 6. 결과
+
+54M tokens 데이터로 70M 규모의 encoder–decoder Transformer를 pretraining한 뒤, 동일한 도메인의 데이터로 fine-tuning을 수행한 결과 test accuracy 83.41%를 달성했다. <code>run_finetuning.ipynb</code>
+
+이는 대규모의 일반 말뭉치에 의존하지 않더라도 pretraining data와 downstream task data의 도메인이 일치하면, 소규모의 pretraining이 성능 향상에 도움이 될 수 있음을 보여주는 결과이다. 
+
+finetuning 과정에서 train accuracy는 꾸준히 상승하는 반면, validation accuracy는 일정 시점 이후 정체되거나 소폭 하락하는 과적합 경향이 나타나 early stopping에 의해 학습이 조기 종료되었다. 
+
+early stopping에 의해 조기 종료된 모델을 기준으로 validation 및 test accuracy를 측정한 결과, 두 성능 간의 차이가 크지 않았다. 이는 unseen data에 대해서도 일정 수준의 일반화 성능을 확보했음을 시사한다.
+
+다만 이 프로젝트에는 몇 가지 한계가 존재한다. 
+
+첫째, pretraining data로 다양한 도메인이 혼합된 대규모 말뭉치 대신 단일 금융 도메인 말뭉치를 선택했다. 이러한 설계는 downstream task에서 합리적인 성능을 달성하는 데에는 도움이 될 수 있으나, 모델이 학습할 수 있는 표현의 범위에는 한계가 존재한다.
+
+예를 들어, 희귀한 시장 이벤트나 특정 기업명, 특정 시기나 섹터에서만 나타나는 표현, 혹은 데이터에 포함되지 않은 거시경제 상황에 대해서는 충분한 학습이 이루어지지 않았을 가능성이 있다. 더구나 주식 시장의 특성상 동일한 문장이라도 당시의 시장 분위기나 기대치, 이미 가격에 반영된 정도에 따라 해석이 달라질 수 있기 때문에, 소규모 말뭉치만으로 이러한 맥락적 다양성을 완전히 포착하기는 어렵다.
+
+둘째, 사전학습과 파인튜닝 데이터가 모두 금융 뉴스라는 점은 distribution shift를 줄이는 데 분명히 도움이 되지만, 이를 완전히 제거한다고 보기는 어렵다. 
+
+Bloomberg Financial News 120k는 article-level이고, Yahoo Finance News Sentences는 sentence-level로 정보 밀도가 더 높다. 즉, 두 데이터셋은 같은 금융 도메인 안에 있더라도 writing style, 정보 밀도 측면에서 차이를 가진다. 
+
+셋째, pretraining objective와 finetuning objective 사이에 불일치가 존재한다. pretraining에서는 span corruption을 사용하지만, finetuning에서는 문장을 bearish, neutral, bullish 중 하나로 분류하는 것이 목표이다.
+
+다시 말해, pretraining은 언어적·문맥적 패턴을 익히는 과정이고, 파인튜닝은 시장 방향성을 판단하는 분류 문제이기 때문에 두 목적이 정확히 일치하지는 않는다.
+
+pretraining으로 금융 텍스트에 대한 표현 학습에는 도움을 줄 수 있지만, 그것만으로 시장 관점의 심리를 직접적으로 학습하는 것은 아니다. 결국 이 프로젝트의 성능은 도메인 지식이 반영된 표현 학습과 레이블이 있는 분류 학습이 결합된 결과이다. 
+
+넷째, small model을 만들기 위해 6 layers를 사용했지만, 줄어든 레이어 수로 인한 성능 저하를 고려하지 않았다. 이를 보완하기 위해 상대적으로 넓은 hidden dimension(<code>d_model</code>)을 사용할 필요가 있다. 
