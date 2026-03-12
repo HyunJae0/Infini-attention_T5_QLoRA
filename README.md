@@ -16,7 +16,7 @@
 ---
 
 ## 3. 모델 아키텍처
-프로젝트에 사용한 모델은 encoder–decoder Transformer이며, positional encoding과 pretraining objective는 T5의 방식을 따른다. 
+프로젝트에 사용한 모델은 encoder–decoder Transformer이며, positional encoding과 pretraining objective는 [T5](https://arxiv.org/abs/1910.10683)의 방식을 따른다. 
 
 T5에서는 original Transformer의 absolute positional encoding 대신 relative position buckets 방식으로, relative position bias를 attention에 반영하는 방식을 사용한다. 
 
@@ -51,3 +51,6 @@ $$V= K (W_K^{-1} W_V)=K W_{KV}$$
 추론 시점에서 $K$만 캐싱한 뒤, 미리 계산해 둔 $W_{KV}=W_K^{-1} W_V$를 통해 $V$를 산출할 수 있다. 그러므로 generate phase에서 계산량은 다소 증가할 수 있으나, memory-bound인 경우 추론 속도가 향상될 수 있다. 
 
 ---
+
+
+
